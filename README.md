@@ -36,7 +36,7 @@ src/pages/tags/          tag index and per-tag pages
 src/pages/robots.txt.ts  noindex by default
 src/styles/theme.css     theme (see MAINTAINING.md → Design rules)
 scripts/                 review-due.mjs, screenshots.py
-.github/workflows/       deploy.yml (GitHub Pages, manual trigger only), check.yml (PR build)
+.github/workflows/       deploy.yml (build + deploy to GitHub Pages on push to main), check.yml (PR build)
 ```
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for how content is added and [MAINTAINING.md](MAINTAINING.md) for cadence, citation rules, design rules and deployment.

@@ -1,7 +1,7 @@
 ---
 title: Updates & changelog
 description: What changed in the playbook, newest first. Every content change that matters gets a line here.
-reviewed: 2026-10-07
+reviewed: 2026-10-08
 owner: AI lead
 tags: [maintenance]
 status: stable
@@ -13,6 +13,9 @@ sidebar:
 Format: **date — area — change** (and why, if not obvious). Regulatory updates note the checked date.
 
 ## October 2026
+
+### 2026-10-08 — Build on push
+- **Site:** publishing moved to GitHub Actions. Every push to `main` builds and deploys the site automatically; pull requests get a build check. The prebuilt `docs/` folder was removed. Custom domain, HTTPS and noindex are unchanged.
 
 ### 2026-10-07 — Published
 - **Site:** published at https://playbook.besaltlabs.ai (GitHub Pages). Still noindex by default.

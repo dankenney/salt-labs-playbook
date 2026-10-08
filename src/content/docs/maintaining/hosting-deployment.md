@@ -1,7 +1,7 @@
 ---
 title: Hosting & deployment
-description: How the site is built, previewed and (once approved) deployed — plus hosting options with access control.
-reviewed: 2026-10-07
+description: How the site is built, previewed and deployed (push to main) — plus hosting options with access control.
+reviewed: 2026-10-08
 owner: AI lead
 tags: [maintenance]
 status: draft
@@ -10,7 +10,7 @@ sidebar:
 ---
 
 :::note[Live]
-Published at **https://playbook.besaltlabs.ai** from the public repository `dankenney/salt-labs-playbook` (GitHub Pages, branch `main`, folder `docs/`). The site is set to noindex by default.
+Published at **https://playbook.besaltlabs.ai** from the public repository `dankenney/salt-labs-playbook`. Every push to `main` is built and deployed by GitHub Actions. The site is set to noindex by default.
 :::
 
 ## Build and preview
@@ -20,7 +20,6 @@ npm ci                 # install exact dependencies (Node 22+)
 npm run build          # static site → dist/ (fails on broken links, unknown tags, missing 'reviewed')
 npm run preview        # serves dist/ on http://127.0.0.1:4321
 npm run review:due     # lists pages past their review date
-npm run publish:docs   # build and copy to docs/ for GitHub Pages (commit + push to publish)
 ```
 
 ## Configuration
@@ -32,11 +31,14 @@ npm run publish:docs   # build and copy to docs/ for GitHub Pages (commit + push
 
 ## Publishing
 
-1. `npm run publish:docs` (builds and refreshes `docs/`).
-2. Commit source and `docs/` together; push to `main`. GitHub Pages redeploys automatically.
-3. Custom domain: `public/CNAME` = `playbook.besaltlabs.ai`; DNS is a DNS-only CNAME to `dankenney.github.io`.
+Push to `main` = build and deploy.
 
-A GitHub Actions build-on-push workflow is staged in `ops/github-actions/` and can replace the `docs/` step once the publishing token has the `workflow` scope.
+1. Edit pages; optionally run `npm run build` locally (CI runs the same build).
+2. Commit and push to `main`. The **Deploy playbook to GitHub Pages** workflow (`.github/workflows/deploy.yml`) builds the site and deploys it, usually within two minutes.
+3. If the build fails (broken link, unknown tag, missing `reviewed` date), nothing is deployed and the previous version stays live. Fix and push again.
+4. Pull requests run **Check playbook build** (`.github/workflows/check.yml`): the same build plus the review-due report.
+
+Custom domain `playbook.besaltlabs.ai` and Enforce HTTPS are set in the repository's Pages settings (source: GitHub Actions). DNS is a DNS-only CNAME to `dankenney.github.io`. To allow search indexing, set the repository variable `PLAYBOOK_INDEXABLE` to `true` and re-run the deploy.
 
 ## Hosting options compared (checked 7 Oct 2026)
 

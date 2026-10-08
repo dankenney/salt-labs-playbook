@@ -1,15 +1,15 @@
-# Deploy the playbook to GitHub Pages.
-# PREPARED BUT UNUSED: runs only when triggered manually (workflow_dispatch) until hosting is approved.
-# Configure in repo Settings → Secrets and variables → Actions → Variables:
-#   SITE_URL             e.g. https://playbook.besaltlabs.ai   (canonical URL; this is also the build default)
-#   PAGES_CUSTOM_DOMAIN  e.g. playbook.besaltlabs.ai           (written to CNAME; leave unset for no custom domain)
-#   PLAYBOOK_INDEXABLE   'true' to allow search indexing (default: noindex)
+# Build and deploy the playbook to GitHub Pages (https://playbook.besaltlabs.ai) on every push to main.
+# Can also be run by hand from the Actions tab (workflow_dispatch).
+# Optional repo variables (Settings → Secrets and variables → Actions → Variables); all unset by default:
+#   SITE_URL             canonical URL (build default: https://playbook.besaltlabs.ai)
+#   PAGES_CUSTOM_DOMAIN  overrides public/CNAME (which already contains playbook.besaltlabs.ai)
+#   PLAYBOOK_INDEXABLE   'true' to allow search indexing (default: noindex + robots.txt Disallow)
 name: Deploy playbook to GitHub Pages
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
-  # push:
-  #   branches: [main]
 
 permissions:
   contents: read

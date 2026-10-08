@@ -45,18 +45,25 @@ Maintainer: Salt Labs (the AI lead), maintained with Grok Bot's help. This file 
 `npm outdated` → bump Astro/Starlight together → `npm run build` → check screenshots (`npm run preview` + `npm run screenshots`). Starlight component overrides live in `src/components/`; re-check them against the upstream `Footer.astro` / `PageTitle.astro` after major upgrades.
 
 ## Hosting & publishing (live)
-- **Live site:** https://playbook.besaltlabs.ai — public repo https://github.com/dankenney/salt-labs-playbook (GitHub Pages, "Deploy from a branch": `main` / `docs`).
-- **DNS:** Cloudflare, DNS-only (not proxied) `CNAME playbook → dankenney.github.io`. `public/CNAME` carries the custom domain into every build.
-- **Indexing:** noindex by default (meta tag + `robots.txt` Disallow). To allow search engines, build with `PLAYBOOK_INDEXABLE=true`.
+- **Live site:** https://playbook.besaltlabs.ai — public repo https://github.com/dankenney/salt-labs-playbook (GitHub Pages, source: **GitHub Actions**).
+- **DNS:** Cloudflare, DNS-only (not proxied) `CNAME playbook → dankenney.github.io`. Custom domain and Enforce HTTPS are set in the repo's Pages settings; `public/CNAME` also carries the domain into every build.
+- **Indexing:** noindex by default (meta tag + `robots.txt` Disallow). To allow search engines, set the repo variable `PLAYBOOK_INDEXABLE=true` (Settings → Secrets and variables → Actions → Variables) and re-run the deploy.
 
-### Publish flow (current: prebuilt `docs/`)
+### Publish flow: push to `main` = build and deploy
 ```bash
 export PATH=~/.local/node22/bin:$PATH     # Node 22 on the shared box
-npm run publish:docs                      # astro build → copies dist/ to docs/ (+ .nojekyll)
-git add -A && git commit -m "…"           # commit source AND docs/ together
-git push                                  # GitHub Pages redeploys main/docs automatically (~1 min)
+npm run build                             # optional local check (same build CI runs)
+git add -A && git commit -m "…"
+git push                                  # .github/workflows/deploy.yml builds and deploys (~1–2 min)
 ```
+- `.github/workflows/deploy.yml` runs on every push to `main` (and manually via "Run workflow"). A failed build (broken link, unknown tag, missing `reviewed`) does not deploy; the previous version stays live.
+- `.github/workflows/check.yml` runs the same build plus `npm run review:due` on pull requests.
+- Watch runs: `gh run list -R dankenney/salt-labs-playbook` / `gh run watch <id> -R dankenney/salt-labs-playbook`.
+- Do not commit built output (`dist/`, `docs/`); CI builds from source.
+
 Never commit client data, secrets or personal emails; the repo is public. Commit as `Dan Kenney <36637598+dankenney@users.noreply.github.com>`.
 
-### Planned: build on push with GitHub Actions
-The workflows are staged in `ops/github-actions/` because the publishing token lacks GitHub's `workflow` scope. Once granted (`gh auth refresh -h github.com -s workflow`), follow `ops/github-actions/README.md`: move the workflows into `.github/workflows/`, delete `docs/`, and switch Pages to `build_type=workflow`. After that, a plain `git push` to `main` builds and deploys.
+### Emergency fallback (if Actions is unavailable)
+Publish prebuilt files from a branch folder: `npm run publish:docs` (builds into `docs/` with `.nojekyll`), commit `docs/`, push, then
+`gh api -X PUT repos/dankenney/salt-labs-playbook/pages -f build_type=legacy -f "source[branch]=main" -f "source[path]=/docs" -f cname=playbook.besaltlabs.ai`.
+Switch back with `-f build_type=workflow`, delete `docs/`, and re-check that Enforce HTTPS is still on.
