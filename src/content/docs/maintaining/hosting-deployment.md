@@ -9,8 +9,8 @@ sidebar:
   order: 4
 ---
 
-:::caution[Not deployed]
-As of 7 Oct 2026 the site is built locally only. Nothing is published until the owner approves a hosting option. The GitHub Pages workflow in `.github/workflows/deploy.yml` runs **only when triggered manually**.
+:::note[Live]
+Published at **https://playbook.besaltlabs.ai** from the public repository `dankenney/salt-labs-playbook` (GitHub Pages, branch `main`, folder `docs/`). The site is set to noindex by default.
 :::
 
 ## Build and preview
@@ -20,6 +20,7 @@ npm ci                 # install exact dependencies (Node 22+)
 npm run build          # static site → dist/ (fails on broken links, unknown tags, missing 'reviewed')
 npm run preview        # serves dist/ on http://127.0.0.1:4321
 npm run review:due     # lists pages past their review date
+npm run publish:docs   # build and copy to docs/ for GitHub Pages (commit + push to publish)
 ```
 
 ## Configuration
@@ -29,15 +30,13 @@ npm run review:due     # lists pages past their review date
 | `SITE_URL` | `https://playbook.besaltlabs.ai` | Canonical URL used in sitemap and metadata |
 | `PLAYBOOK_INDEXABLE` | unset (noindex) | Set to `true` to allow search engines; otherwise every page has `noindex` and `robots.txt` disallows all |
 
-## GitHub Pages (prepared, unused)
+## Publishing
 
-1. Create the repository (public or private, per the decision) and push.
-2. Repository **Settings → Pages → Source: GitHub Actions**.
-3. Set repository **variables**: `SITE_URL` (`https://playbook.besaltlabs.ai`), `PAGES_CUSTOM_DOMAIN` (`playbook.besaltlabs.ai`), optionally `PLAYBOOK_INDEXABLE=true`.
-4. Add a DNS `CNAME` record for `playbook.besaltlabs.ai` pointing to `<owner>.github.io`, then set the custom domain and **Enforce HTTPS** in Pages settings.
-5. Run the **Deploy playbook to GitHub Pages** workflow manually. To deploy on every push to `main`, uncomment the `push` trigger.
+1. `npm run publish:docs` (builds and refreshes `docs/`).
+2. Commit source and `docs/` together; push to `main`. GitHub Pages redeploys automatically.
+3. Custom domain: `public/CNAME` = `playbook.besaltlabs.ai`; DNS is a DNS-only CNAME to `dankenney.github.io`.
 
-The workflow writes `public/CNAME` from `PAGES_CUSTOM_DOMAIN` at build time, so no domain is hard-coded in the repository. Links in content are root-relative, so use a custom (sub)domain rather than a `github.io/<repo>` project path.
+A GitHub Actions build-on-push workflow is staged in `ops/github-actions/` and can replace the `docs/` step once the publishing token has the `workflow` scope.
 
 ## Hosting options compared (checked 7 Oct 2026)
 

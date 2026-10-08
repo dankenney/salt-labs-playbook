@@ -14,6 +14,9 @@ Format: **date — area — change** (and why, if not obvious). Regulatory updat
 
 ## October 2026
 
+### 2026-10-07 — Published
+- **Site:** published at https://playbook.besaltlabs.ai (GitHub Pages). Still noindex by default.
+
 ### 2026-10-07 — Rebrand to Salt Labs
 - **Site:** rebranded as "Salt Labs · AI-First Sustainability Playbook" with an SL monogram mark; new footer ("A Salt Labs working playbook. Practical guidance, not professional advice — always follow your organization's policies."); canonical URL default `https://playbook.besaltlabs.ai`. Still noindex by default and not deployed.
 
