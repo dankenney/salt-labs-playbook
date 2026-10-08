@@ -1,0 +1,42 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { getCollection } from 'astro:content';
+import { TAGS, tagLabel } from '../../data/tags';
+
+export async function getStaticPaths() {
+	const docs = await getCollection('docs');
+	const used = new Set<string>();
+	for (const d of docs) for (const t of (d.data as any).tags ?? []) used.add(t);
+	return [...used].filter((t) => t in TAGS).map((tag) => ({ params: { tag } }));
+}
+
+const { tag } = Astro.params as { tag: string };
+const docs = (await getCollection('docs'))
+	.filter((d) => ((d.data as any).tags ?? []).includes(tag))
+	.sort((a, b) => a.data.title.localeCompare(b.data.title));
+const fmt = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+---
+
+<StarlightPage frontmatter={{ title: `#${tagLabel(tag)}`, description: `Pages tagged ${tagLabel(tag)}.`, reviewed: new Date('2026-10-07'), tableOfContents: false } as any}>
+	<p>{docs.length} page{docs.length === 1 ? '' : 's'} tagged <strong>{tagLabel(tag)}</strong>. <a href="/tags/">All tags →</a></p>
+	<div class="tag-list">
+		{docs.map((d) => (
+			<a class="tag-item" href={`/${d.id === 'index' ? '' : d.id + '/'}`}>
+				<strong>{d.data.title}</strong>
+				{d.data.description && <span>{d.data.description}</span>}
+				<small>Last reviewed {fmt((d.data as any).reviewed)}</small>
+			</a>
+		))}
+	</div>
+</StarlightPage>
+
+<style>
+	.tag-list { display: grid; gap: 0.75rem; margin-top: 1rem; }
+	.tag-item {
+		display: grid; gap: 0.25rem; padding: 1rem 1.1rem; border-radius: 0.75rem; text-decoration: none;
+		border: 1px solid var(--sl-color-gray-5); background: var(--sl-color-bg-nav); color: var(--sl-color-gray-2);
+	}
+	.tag-item:hover { border-color: var(--sl-color-accent); }
+	.tag-item strong { color: var(--sl-color-white); }
+	.tag-item small { color: var(--sl-color-gray-3); }
+</style>

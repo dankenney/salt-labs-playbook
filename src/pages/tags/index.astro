@@ -1,0 +1,31 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { getCollection } from 'astro:content';
+import { TAGS, tagHref } from '../../data/tags';
+
+const docs = await getCollection('docs');
+const counts = new Map<string, number>();
+for (const d of docs) for (const t of (d.data as any).tags ?? []) counts.set(t, (counts.get(t) ?? 0) + 1);
+const tags = Object.entries(TAGS).filter(([k]) => counts.has(k)).sort((a, b) => a[1].localeCompare(b[1]));
+---
+
+<StarlightPage frontmatter={{ title: 'Browse by tag', description: 'Every playbook page, grouped by topic tag.', reviewed: new Date('2026-10-07'), tableOfContents: false } as any}>
+	<p>Tags are a controlled vocabulary (see <a href="/maintaining/page-template/">page template</a>). Pick one to see every page that carries it.</p>
+	<ul class="tag-cloud">
+		{tags.map(([k, label]) => (
+			<li><a href={tagHref(k)}>{label} <span>{counts.get(k)}</span></a></li>
+		))}
+	</ul>
+</StarlightPage>
+
+<style>
+	.tag-cloud { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+	.tag-cloud li { margin: 0; }
+	.tag-cloud a {
+		display: inline-flex; gap: 0.5rem; align-items: center; text-decoration: none;
+		padding: 0.4rem 0.8rem; border-radius: 0.6rem; border: 1px solid var(--sl-color-gray-5);
+		color: var(--sl-color-white); background: var(--sl-color-bg-nav);
+	}
+	.tag-cloud a:hover { border-color: var(--sl-color-accent); }
+	.tag-cloud span { font-size: var(--sl-text-xs); color: var(--sl-color-accent-high); background: var(--sl-color-accent-low); padding: 0 0.4rem; border-radius: 0.3rem; }
+</style>

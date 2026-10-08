@@ -1,0 +1,53 @@
+# Deploy the playbook to GitHub Pages.
+# PREPARED BUT UNUSED: runs only when triggered manually (workflow_dispatch) until hosting is approved.
+# Configure in repo Settings → Secrets and variables → Actions → Variables:
+#   SITE_URL             e.g. https://playbook.besaltlabs.ai   (canonical URL; this is also the build default)
+#   PAGES_CUSTOM_DOMAIN  e.g. playbook.besaltlabs.ai           (written to CNAME; leave unset for no custom domain)
+#   PLAYBOOK_INDEXABLE   'true' to allow search indexing (default: noindex)
+name: Deploy playbook to GitHub Pages
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Write CNAME (optional)
+        if: ${{ vars.PAGES_CUSTOM_DOMAIN != '' }}
+        run: echo "${{ vars.PAGES_CUSTOM_DOMAIN }}" > public/CNAME
+      - name: Build
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+          PLAYBOOK_INDEXABLE: ${{ vars.PLAYBOOK_INDEXABLE }}
+        run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,237 @@
+/* ==========================================================================
+   AI-First Sustainability Playbook — theme
+   Palette: deep forest + lichen accent (dark), paper + evergreen accent (light).
+   Fonts are self-hosted via @fontsource (no external requests).
+   ========================================================================== */
+
+:root {
+	--pb-font-display: 'Fraunces Variable', ui-serif, Georgia, serif;
+	--sl-font: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+	--sl-font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace;
+	--sl-text-h1: 2.6rem;
+	--sl-text-h2: 1.6rem;
+	--sl-content-width: 48rem;
+	--sl-line-height: 1.7;
+
+	/* Dark (default) */
+	--sl-color-accent-low: #12352c;
+	--sl-color-accent: #3fbf96;
+	--sl-color-accent-high: #c9f4e2;
+	--sl-color-white: #f4f7f5;
+	--sl-color-gray-1: #e2e8e5;
+	--sl-color-gray-2: #b9c4bf;
+	--sl-color-gray-3: #8a9893;
+	--sl-color-gray-4: #56635e;
+	--sl-color-gray-5: #34403b;
+	--sl-color-gray-6: #1b2521;
+	--sl-color-black: #0e1513;
+	--sl-color-bg-nav: #111a17;
+	--sl-color-bg-sidebar: #0e1513;
+	--pb-ok: #5fd3a6;
+	--pb-warn: #f2b45c;
+	--pb-lime: #d9f99d;
+	--pb-card-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01));
+	--pb-glow: radial-gradient(60rem 30rem at 15% -10%, rgba(63, 191, 150, 0.22), transparent 60%),
+		radial-gradient(40rem 25rem at 95% 0%, rgba(217, 249, 157, 0.10), transparent 60%);
+}
+
+:root[data-theme='light'] {
+	--sl-color-accent-low: #d5efe5;
+	--sl-color-accent: #0d6b5e;
+	--sl-color-accent-high: #08463d;
+	--sl-color-white: #111a17;
+	--sl-color-gray-1: #1f2a26;
+	--sl-color-gray-2: #39453f;
+	--sl-color-gray-3: #5d6a64;
+	--sl-color-gray-4: #8e9a95;
+	--sl-color-gray-5: #d4dbd7;
+	--sl-color-gray-6: #ecf0ed;
+	--sl-color-gray-7: #f5f7f5;
+	--sl-color-black: #fbfaf7;
+	--sl-color-bg-nav: #ffffff;
+	--sl-color-bg-sidebar: #f6f5f0;
+	--pb-ok: #0f7a52;
+	--pb-warn: #a35a00;
+	--pb-lime: #4d7c0f;
+	--pb-card-bg: linear-gradient(180deg, #ffffff, #fbfbf8);
+	--pb-glow: radial-gradient(60rem 30rem at 15% -10%, rgba(13, 107, 94, 0.12), transparent 60%),
+		radial-gradient(40rem 25rem at 95% 0%, rgba(132, 204, 22, 0.10), transparent 60%);
+}
+
+/* Typography ------------------------------------------------------------ */
+.sl-markdown-content h2,
+.sl-markdown-content h3 {
+	font-family: var(--pb-font-display);
+	letter-spacing: -0.015em;
+	font-weight: 600;
+}
+.sl-markdown-content h2 {
+	margin-top: 2.6rem;
+	padding-top: 1.2rem;
+	border-top: 1px solid var(--sl-color-hairline);
+}
+.sl-markdown-content h4 {
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	font-size: 0.8rem;
+	color: var(--sl-color-accent-high);
+}
+.site-title {
+	font-family: var(--pb-font-display);
+	font-weight: 600;
+	letter-spacing: -0.01em;
+}
+header.header {
+	backdrop-filter: saturate(140%) blur(8px);
+	background-color: color-mix(in srgb, var(--sl-color-bg-nav) 86%, transparent);
+}
+
+/* Tables: scannable ------------------------------------------------------ */
+.sl-markdown-content table {
+	display: table;
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	font-size: 0.9rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 0.6rem;
+	overflow: hidden;
+}
+.sl-markdown-content :is(th, td) {
+	padding: 0.55rem 0.8rem;
+	border-bottom: 1px solid var(--sl-color-gray-5);
+	vertical-align: top;
+}
+.sl-markdown-content th {
+	background: var(--sl-color-gray-6);
+	text-align: left;
+	font-weight: 600;
+	font-size: 0.78rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: var(--sl-color-gray-2);
+}
+.sl-markdown-content tr:last-child td { border-bottom: 0; }
+
+/* Checklists -------------------------------------------------------------- */
+.sl-markdown-content ul.contains-task-list { list-style: none; padding-inline-start: 0.2rem; }
+.sl-markdown-content .task-list-item input[type='checkbox'] { accent-color: var(--sl-color-accent); margin-inline-end: 0.5rem; transform: translateY(1px); }
+
+/* Asides ------------------------------------------------------------------ */
+.starlight-aside { border-radius: 0.6rem; border-inline-start-width: 4px; }
+
+/* Cards ------------------------------------------------------------------- */
+.card {
+	border-radius: 0.9rem !important;
+	background: var(--pb-card-bg) !important;
+	border-color: var(--sl-color-gray-5) !important;
+	transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.card:hover { border-color: var(--sl-color-accent) !important; }
+.sl-link-card { border-radius: 0.9rem !important; background: var(--pb-card-bg); }
+
+/* Badges inline in tables */
+.sl-badge { font-weight: 600; }
+
+/* Landing page uses a wider canvas */
+:root:has(.pb-hero) { --sl-content-width: 74rem; }
+.sl-badge { font-size: 0.62rem; }
+
+/* ==========================================================================
+   Landing page
+   ========================================================================== */
+[data-has-hero] .main-frame, .pb-landing-bg { background: var(--pb-glow); }
+.pb-hero {
+	padding: 3.5rem 0 1.5rem;
+}
+.pb-hero h2.pb-display { max-width: 56rem; }
+.pb-eyebrow {
+	display: inline-flex; gap: 0.5rem; align-items: center;
+	font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+	color: var(--sl-color-accent-high); background: var(--sl-color-accent-low);
+	padding: 0.35rem 0.75rem; border-radius: 999px;
+}
+.pb-hero h2.pb-display {
+	font-family: var(--pb-font-display);
+	font-size: clamp(2.4rem, 5.5vw, 4.1rem);
+	line-height: 1.04;
+	letter-spacing: -0.03em;
+	font-weight: 600;
+	margin: 1.2rem 0 1rem;
+	border: 0; padding: 0;
+	color: var(--sl-color-white);
+	font-variation-settings: 'opsz' 144, 'SOFT' 50;
+}
+.pb-hero h2.pb-display em { font-style: italic; color: var(--sl-color-accent); }
+.pb-lede { font-size: 1.2rem; line-height: 1.6; color: var(--sl-color-gray-2); max-width: 44rem; }
+.pb-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.6rem; }
+.pb-btn {
+	display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.2rem; border-radius: 0.7rem;
+	font-weight: 600; text-decoration: none; font-size: 0.95rem; border: 1px solid transparent;
+}
+.pb-btn-primary { background: var(--sl-color-accent); color: var(--sl-color-black); }
+:root[data-theme='light'] .pb-btn-primary { color: #fff; }
+.pb-btn-ghost { border-color: var(--sl-color-gray-5); color: var(--sl-color-white); }
+.pb-btn:hover { filter: brightness(1.08); }
+
+.pb-principles {
+	display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 0.75rem;
+	margin: 2.2rem 0 0.5rem;
+}
+.pb-principle {
+	padding: 1rem 1.1rem; border-radius: 0.8rem; border: 1px solid var(--sl-color-gray-5); background: var(--pb-card-bg);
+}
+.pb-principle b { display: block; font-family: var(--pb-font-display); font-size: 1.05rem; color: var(--sl-color-white); margin-bottom: 0.2rem; }
+.pb-principle span { font-size: 0.86rem; color: var(--sl-color-gray-3); line-height: 1.5; }
+
+.pb-section-title {
+	font-family: var(--pb-font-display); font-size: 1.7rem !important; margin-top: 3rem !important;
+	border-top: 0 !important; padding-top: 0 !important;
+}
+.pb-section-sub { color: var(--sl-color-gray-3); margin-top: 0.25rem !important; }
+
+.pb-grid {
+	display: grid; grid-template-columns: repeat(auto-fill, minmax(15.5rem, 1fr)); gap: 1rem; margin-top: 1.2rem;
+}
+.pb-card {
+	position: relative; display: flex; flex-direction: column; gap: 0.45rem;
+	padding: 1.25rem 1.25rem 1.1rem; border-radius: 0.9rem; text-decoration: none !important;
+	border: 1px solid var(--sl-color-gray-5); background: var(--pb-card-bg); color: var(--sl-color-gray-2) !important;
+	transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.pb-card:hover { transform: translateY(-2px); border-color: var(--sl-color-accent); box-shadow: 0 10px 30px -18px var(--sl-color-accent); }
+.pb-card .pb-num { font-family: var(--sl-font-mono); font-size: 0.72rem; color: var(--sl-color-accent); letter-spacing: 0.08em; }
+.pb-card strong { font-family: var(--pb-font-display); font-size: 1.15rem; color: var(--sl-color-white); font-weight: 600; line-height: 1.25; }
+.pb-card p { margin: 0 !important; font-size: 0.9rem; line-height: 1.5; color: var(--sl-color-gray-3); }
+.pb-card .pb-depth {
+	align-self: flex-start; margin-top: auto; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+	color: var(--pb-lime); border: 1px solid currentColor; border-radius: 999px; padding: 0.1rem 0.5rem;
+}
+.pb-card .pb-depth.std { color: var(--sl-color-gray-3); }
+
+.pb-band {
+	margin-top: 3rem; padding: 1.6rem 1.6rem; border-radius: 1rem;
+	border: 1px solid var(--sl-color-gray-5); background: var(--pb-card-bg);
+	display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1.2rem;
+}
+.pb-band div b { display: block; font-family: var(--pb-font-display); color: var(--sl-color-white); font-size: 1.05rem; }
+.pb-band div span { font-size: 0.88rem; color: var(--sl-color-gray-3); }
+.pb-band .pb-k { font-family: var(--sl-font-mono); font-size: 0.72rem; color: var(--sl-color-accent); letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* Prompt blocks: give "Prompt" titled code frames a subtle accent */
+.expressive-code .frame.has-title .header .title { font-family: var(--sl-font); font-weight: 600; }
+
+/* Aside palette harmonised with the theme */
+:root {
+	--sl-color-blue-low: #10303a; --sl-color-blue: #4fb3d9; --sl-color-blue-high: #cdeefa;
+	--sl-color-purple-low: #26331a; --sl-color-purple: #a3d65c; --sl-color-purple-high: #e6f7c8;
+}
+:root[data-theme='light'] {
+	--sl-color-blue-low: #dcf0f7; --sl-color-blue: #1f6f8b; --sl-color-blue-high: #0d3e50;
+	--sl-color-purple-low: #eef7dc; --sl-color-purple: #4d7c0f; --sl-color-purple-high: #2c4a07;
+}
+
+/* Landing layout fixes: cancel Starlight's flow spacing inside grids; collapse the hidden-title panel */
+.pb-principles > *, .pb-grid > *, .pb-band > *, .pb-actions > *, .pb-card > *, .pb-band div > * { margin-top: 0 !important; }
+.content-panel:has(h1.sr-only) { padding: 0 !important; border: 0 !important; min-height: 0; }
+.content-panel:has(h1.sr-only) + .content-panel { border-top: 0; }
