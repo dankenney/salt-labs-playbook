@@ -23,4 +23,4 @@ Consult these guides before working on related tasks:
 
 ## This repository
 
-Salt Labs · AI-First Sustainability Playbook. Before editing content, read `CONTRIBUTING.md` (content rules, page template) and `MAINTAINING.md` (review cadence, citation rules, design rules, publish flow). `npm run build` must pass before committing.
+BeSalt Labs · AI-First Sustainability Playbook. Before editing content, read `CONTRIBUTING.md` (content rules, page template) and `MAINTAINING.md` (review cadence, citation rules, design rules, publish flow). `npm run build` must pass before committing.

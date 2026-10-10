@@ -1,6 +1,6 @@
 # Maintaining the playbook
 
-Maintainer: Salt Labs (the AI lead), maintained with Grok Bot's help. This file is the operating manual.
+Maintainer: BeSalt Labs (the AI lead), maintained with Grok Bot's help. This file is the operating manual.
 
 ## Review cadence
 
@@ -38,7 +38,7 @@ Maintainer: Salt Labs (the AI lead), maintained with Grok Bot's help. This file 
 - Type: Fraunces (display headings, h2/h3), Inter (body), JetBrains Mono (code). Self-hosted; never add CDN fonts or external scripts.
 - Landing page cards: `.pb-card` with `.pb-num` code (P-01…/01…) and an optional `.pb-depth` chip ("Deep dive"). Keep 8 cards per grid.
 - Callouts: note = information, tip = shortcut, caution = risk, danger = hard rule (policy/legal/independence).
-- Brand: "Salt Labs · AI-First Sustainability Playbook". The only brand asset is the SL monogram in `src/assets/mark.svg` (also `public/favicon.svg`). No third-party, firm or client logos.
+- Brand: "BeSalt Labs · AI-First Sustainability Playbook". The only brand asset is the SL monogram in `src/assets/mark.svg` (also `public/favicon.svg`). No third-party, firm or client logos.
 - The footer disclaimer in `src/components/Footer.astro` must stay on every page.
 
 ## Upgrading dependencies

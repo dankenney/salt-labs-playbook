@@ -1,8 +1,8 @@
-# Salt Labs · AI-First Sustainability Playbook
+# BeSalt Labs · AI-First Sustainability Playbook
 
 Practical, tactical guidance for running a climate change and sustainability services practice AI-first: use-case playbooks, copyable prompts and agent patterns, quality/risk controls, a tools landscape, a reference build, an ideas inbox and a dated regulatory tracker.
 
-> A Salt Labs working playbook. Practical guidance, not professional advice — always follow your organization's policies.
+> A BeSalt Labs working playbook. Practical guidance, not professional advice — always follow your organization's policies.
 > Public sources only. No client names, engagement details or internal tools.
 
 ## Quick start

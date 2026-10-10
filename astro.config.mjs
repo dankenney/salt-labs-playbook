@@ -13,10 +13,10 @@ export default defineConfig({
 	site: SITE_URL,
 	integrations: [
 		starlight({
-			title: 'Salt Labs · AI-First Sustainability Playbook',
+			title: 'BeSalt Labs · AI-First Sustainability Playbook',
 			description:
-				'A Salt Labs working playbook: practical, tactical guidance for running a climate change and sustainability practice AI-first.',
-			logo: { src: './src/assets/mark.svg', alt: 'Salt Labs' },
+				'A BeSalt Labs working playbook: practical, tactical guidance for running a climate change and sustainability practice AI-first.',
+			logo: { src: './src/assets/mark.svg', alt: 'BeSalt Labs' },
 			favicon: '/favicon.svg',
 			lastUpdated: false,
 			pagination: true,
@@ -31,7 +31,7 @@ export default defineConfig({
 			head: [
 				...(INDEXABLE ? [] : [{ tag: 'meta', attrs: { name: 'robots', content: 'noindex, nofollow, noarchive' } }]),
 				{ tag: 'meta', attrs: { name: 'referrer', content: 'no-referrer' } },
-				{ tag: 'meta', attrs: { name: 'author', content: 'Salt Labs' } },
+				{ tag: 'meta', attrs: { name: 'author', content: 'BeSalt Labs' } },
 			],
 			components: {
 				PageTitle: './src/components/PageTitle.astro',
