@@ -38,14 +38,14 @@ Maintainer: BeSalt Labs (the AI lead), maintained with Grok Bot's help. This fil
 - Type: Fraunces (display headings, h2/h3), Inter (body), JetBrains Mono (code). Self-hosted; never add CDN fonts or external scripts.
 - Landing page cards: `.pb-card` with `.pb-num` code (P-01…/01…) and an optional `.pb-depth` chip ("Deep dive"). Keep 8 cards per grid.
 - Callouts: note = information, tip = shortcut, caution = risk, danger = hard rule (policy/legal/independence).
-- Brand: "BeSalt Labs · AI-First Sustainability Playbook". The only brand asset is the SL monogram in `src/assets/mark.svg` (also `public/favicon.svg`). No third-party, firm or client logos.
+- Brand: "BeSalt Labs · AI-First Sustainability Playbook". The only brand asset is the BSL monogram in `src/assets/mark.svg` (also `public/favicon.svg`). No third-party, firm or client logos.
 - The footer disclaimer in `src/components/Footer.astro` must stay on every page.
 
 ## Upgrading dependencies
 `npm outdated` → bump Astro/Starlight together → `npm run build` → check screenshots (`npm run preview` + `npm run screenshots`). Starlight component overrides live in `src/components/`; re-check them against the upstream `Footer.astro` / `PageTitle.astro` after major upgrades.
 
 ## Hosting & publishing (live)
-- **Live site:** https://playbook.besaltlabs.ai — public repo https://github.com/dankenney/salt-labs-playbook (GitHub Pages, source: **GitHub Actions**).
+- **Live site:** https://playbook.besaltlabs.ai — public repo https://github.com/dankenney/besaltlabs-playbook (GitHub Pages, source: **GitHub Actions**).
 - **DNS:** Cloudflare, DNS-only (not proxied) `CNAME playbook → dankenney.github.io`. Custom domain and Enforce HTTPS are set in the repo's Pages settings; `public/CNAME` also carries the domain into every build.
 - **Indexing:** noindex by default (meta tag + `robots.txt` Disallow). To allow search engines, set the repo variable `PLAYBOOK_INDEXABLE=true` (Settings → Secrets and variables → Actions → Variables) and re-run the deploy.
 
@@ -58,12 +58,12 @@ git push                                  # .github/workflows/deploy.yml builds 
 ```
 - `.github/workflows/deploy.yml` runs on every push to `main` (and manually via "Run workflow"). A failed build (broken link, unknown tag, missing `reviewed`) does not deploy; the previous version stays live.
 - `.github/workflows/check.yml` runs the same build plus `npm run review:due` on pull requests.
-- Watch runs: `gh run list -R dankenney/salt-labs-playbook` / `gh run watch <id> -R dankenney/salt-labs-playbook`.
+- Watch runs: `gh run list -R dankenney/besaltlabs-playbook` / `gh run watch <id> -R dankenney/besaltlabs-playbook`.
 - Do not commit built output (`dist/`, `docs/`); CI builds from source.
 
 Never commit client data, secrets or personal emails; the repo is public. Commit as `Dan Kenney <36637598+dankenney@users.noreply.github.com>`.
 
 ### Emergency fallback (if Actions is unavailable)
 Publish prebuilt files from a branch folder: `npm run publish:docs` (builds into `docs/` with `.nojekyll`), commit `docs/`, push, then
-`gh api -X PUT repos/dankenney/salt-labs-playbook/pages -f build_type=legacy -f "source[branch]=main" -f "source[path]=/docs" -f cname=playbook.besaltlabs.ai`.
+`gh api -X PUT repos/dankenney/besaltlabs-playbook/pages -f build_type=legacy -f "source[branch]=main" -f "source[path]=/docs" -f cname=playbook.besaltlabs.ai`.
 Switch back with `-f build_type=workflow`, delete `docs/`, and re-check that Enforce HTTPS is still on.

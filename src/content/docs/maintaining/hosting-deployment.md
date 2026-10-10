@@ -10,7 +10,7 @@ sidebar:
 ---
 
 :::note[Live]
-Published at **https://playbook.besaltlabs.ai** from the public repository `dankenney/salt-labs-playbook`. Every push to `main` is built and deployed by GitHub Actions. The site is set to noindex by default.
+Published at **https://playbook.besaltlabs.ai** from the public repository `dankenney/besaltlabs-playbook`. Every push to `main` is built and deployed by GitHub Actions. The site is set to noindex by default.
 :::
 
 ## Build and preview
